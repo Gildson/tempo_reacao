@@ -2,67 +2,64 @@
 #include <time.h>
 #include <sys/time.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <unistd.h>
 
 using namespace std;
 
 //Estrutura criada para guarda informações do programa
-struct usuario
+typedef struct
 {
-    string nome;
-    int score = 0;
-};
+  string nome;
+  int score;
+}usuario;
 
-//int printbola(){}
 
 int main()
 {
-
+		
     usuario unico;
     cout << "Digite seu nome" << endl;
     cin >> unico.nome;
-
+    
     struct timeval time_reacao_inicio, time_reacao_final;
     int time_reacao[9];
 
-    srand( time (NULL) );
+    unsigned semente = time(0);
+    srand(semente);
+    
+    char comando;
 
-    int comando;
-
-    //São necessárias 10 tentativas, utilizaremos w(119) para cima/a(97) para esquerda/d(100) para direita/s(115) para baixo
+    //São necessárias 10 tentativas, utilizaremos w(119) para cima/a(97) para esquerda/d(100) para direita/s(115) para baixo 
     for(int i = 0; i <= 9; i++)
     {
-        //(aqui está o problema)
-        int bola = 1+rand()%4;
-
-        //Assim que a bola aparece o tempo começa a ser contado
-        printf("%d bola", bola);
+        int bola = 1 + rand()%4;
+        sleep(rand()%3);
+        cout << bola << endl; 
         gettimeofday(&time_reacao_inicio, NULL);
-        comando = getchar();
+        cin >> comando;
         gettimeofday(&time_reacao_final, NULL);
-        //Após aperta a tecla o tempo para e é feito os calculos de quantos milissegundos a pessoa preciso
-        //do momento de ver a bola até aperta a tecla.
-        time_reacao[i] = (int) (1000 * (time_reacao_final.tv_sec - time_reacao_inicio.tv_sec) + (time_reacao_final.tv_usec - time_reacao_inicio.tv_usec) / 1000);
-
-        if(bola == 1 && comando == 'w'){
+		  if(bola == 1 && comando == 'w'){
             unico.score = unico.score+1;
+            time_reacao[i] = (int) (1000 * (time_reacao_final.tv_sec - time_reacao_inicio.tv_sec) + (time_reacao_final.tv_usec - time_reacao_inicio.tv_usec) / 1000);
         } else if (bola == 2 && comando == 'a'){
-                unico.score = unico.score+1;
+        		unico.score = unico.score+1;
+            time_reacao[i] = (int) (1000 * (time_reacao_final.tv_sec - time_reacao_inicio.tv_sec) + (time_reacao_final.tv_usec - time_reacao_inicio.tv_usec) / 1000);
         } else if(bola == 3 && comando == 'd'){
-                unico.score = unico.score+1;
+				unico.score = unico.score+1;
+            time_reacao[i] = (int) (1000 * (time_reacao_final.tv_sec - time_reacao_inicio.tv_sec) + (time_reacao_final.tv_usec - time_reacao_inicio.tv_usec) / 1000);
         } else if(bola == 4 && comando == 's'){
-                unico.score = unico.score+1;
+				unico.score = unico.score+1;
+            time_reacao[i] = (int) (1000 * (time_reacao_final.tv_sec - time_reacao_inicio.tv_sec) + (time_reacao_final.tv_usec - time_reacao_inicio.tv_usec) / 1000);
         } else {
-                unico.score = unico.score;
+            time_reacao[i] = (int) (1000 * (time_reacao_final.tv_sec - time_reacao_inicio.tv_sec) + (time_reacao_final.tv_usec - time_reacao_inicio.tv_usec) / 1000);
         }
      }
 
-     cout << "O usuário " << unico.nome << endl;
+    int tempo_medio=0;
      for(int j=0; j <= 9; j++)
      {
-         printf("Gastou %d milissegundos na %d tentativa\n", time_reacao[j], j+1);
+     		 tempo_medio += time_reacao[j];
      }
-     cout << "Acertou " << unico.score;
-
+     cout << unico.nome << " Teve um score de " << unico.score << " com tempo médio de resposta de " << tempo_medio/10 << endl;
      return 0;
 }
