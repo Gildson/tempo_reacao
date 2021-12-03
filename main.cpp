@@ -31,7 +31,7 @@ int main()
 
     //São necessárias 10 tentativas, utilizaremos w(119) para cima/a(97) para esquerda/d(100) para direita/s(115) para baixo 
     for(int i = 0; i <= 9; i++)
-    {
+    {	//testar o continue dentro de um teste com um contador recebendo a dif entre time_t, segundo leituras o continue quebra a interação atual do loop e joga o fluxo pra próxima.
         int bola = 1 + rand()%4;
         sleep(rand()%3);
         cout << bola << endl; 
