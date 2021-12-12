@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/imagens">
+        <file>amarelo.jpeg</file>
+        <file>images.jpeg</file>
+        <file>verde.jpeg</file>
+        <file>vermelha.jpeg</file>
+    </qresource>
+</RCC>
